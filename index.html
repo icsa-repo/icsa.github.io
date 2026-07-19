@@ -1,0 +1,495 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICSA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f8f9fa;
+    --bg-muted: #f1f3f5;
+    --text: #1a1a2e;
+    --text-secondary: #5c5c7a;
+    --text-tertiary: #9494ad;
+    --accent: #2563eb;
+    --accent-light: #eff6ff;
+    --border: #e5e7eb;
+    --border-light: #f1f3f5;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+    --radius: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+  }
+
+  nav.scrolled { box-shadow: var(--shadow-sm); }
+
+  .nav-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+
+  .nav-logo {
+    font-weight: 700;
+    font-size: 0.88em;
+    letter-spacing: -0.3px;
+    color: var(--text);
+  }
+
+  .nav-links { display: flex; align-items: center; gap: 2px; }
+
+  .nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.82em;
+    font-weight: 500;
+    padding: 7px 14px;
+    border-radius: 8px;
+  }
+
+  .nav-links a:hover {
+    color: var(--text);
+    background: var(--bg-muted);
+  }
+
+  .mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    padding: 8px;
+  }
+
+  .hero {
+    background: var(--bg-soft);
+    border-bottom: 1px solid var(--border);
+    padding: 80px 24px 72px;
+    text-align: center;
+  }
+
+  .hero-inner { max-width: 640px; margin: 0 auto; }
+
+  .hero h1 {
+    font-size: clamp(2em, 4.5vw, 2.8em);
+    font-weight: 800;
+    letter-spacing: -0.8px;
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+
+  .hero .tagline {
+    font-size: 1.15em;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  main {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  section { margin-bottom: 64px; }
+
+  .section-label {
+    font-size: 0.7em;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  h2 {
+    font-size: 1.5em;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    margin-bottom: 20px;
+  }
+
+  .lead {
+    font-size: 1.05em;
+    color: var(--text);
+    line-height: 1.8;
+    margin-bottom: 14px;
+  }
+
+  p { color: var(--text-secondary); line-height: 1.8; }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .feature-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+  }
+
+  .feature-card strong {
+    display: block;
+    font-size: 0.92em;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .feature-card p { font-size: 0.88em; margin: 0; }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+  }
+
+  .pillar-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 22px;
+    text-align: center;
+  }
+
+  .pillar-card h3 {
+    font-size: 0.95em;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .pillar-card p { font-size: 0.88em; margin: 0; }
+
+  .pillar-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: var(--accent-light);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+  }
+
+  .programs-list {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--bg);
+  }
+
+  .program-item {
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .program-item:last-child { border-bottom: none; }
+
+  .program-item strong {
+    font-size: 0.92em;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .program-item p { font-size: 0.88em; margin: 4px 0 0; }
+
+  .conduct-list {
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .conduct-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.94em;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  .conduct-list li i {
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    background: var(--accent);
+    color: #fff;
+    padding: 12px 28px;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.9em;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .cta:hover { background: #1d4ed8; }
+
+  footer {
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 36px 24px;
+  }
+
+  footer p {
+    font-size: 0.85em;
+    color: var(--text-tertiary);
+    margin-bottom: 4px;
+  }
+
+  footer a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(16px);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+    .mobile-toggle { display: block; }
+    .features-grid, .pillars-grid { grid-template-columns: 1fr; }
+    .hero { padding: 56px 24px 52px; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="mainNav">
+  <div class="nav-inner">
+    <div class="nav-logo">ICSA</div>
+    <div class="nav-links" id="navLinks">
+      <a href="#manifesto">Manifesto</a>
+      <a href="#pillars">Pillars</a>
+      <a href="#events">Events</a>
+      <a href="#programs">Programs</a>
+      <a href="#conduct">Code of Conduct</a>
+      <a href="#join">Join Us</a>
+    </div>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+      <i data-lucide="menu" style="width:20px;height:20px;"></i>
+    </button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <h1>ICSA</h1>
+    <p class="tagline">Knowledge is a trust. Security is a service.</p>
+  </div>
+</header>
+
+<main>
+
+  <section id="manifesto" style="padding-top:56px;">
+    <div class="section-label">Manifesto</div>
+    <h2>Our Manifesto</h2>
+    <p class="lead">The Islamic Cyber Security Alliance is a community for people doing offensive and defensive security. The field is understaffed. Attackers move faster than most organizations can keep up with. We exist to put more capable people on the defensive side.</p>
+    <p>We run workshops, hackathons, and mentorship programs. Someone who has never opened a terminal can sit next to someone who writes exploits for a living and both get something out of it.</p>
+    <p>A lot of security communities are competitive to a fault. People gatekeep knowledge to protect their own status. We do not do that here. If you know something, you teach it. If you do not know something, you ask.</p>
+    <p>Prayer breaks are in the schedule. Food is halal. Events do not serve alcohol.</p>
+  </section>
+
+  <section id="pillars">
+    <div class="section-label">Pillars</div>
+    <h2>What We Stand For</h2>
+    <div class="pillars-grid">
+      <div class="pillar-card">
+        <div class="pillar-icon">
+          <i data-lucide="book-open" style="width:20px;height:20px;"></i>
+        </div>
+        <h3>Knowledge as Trust</h3>
+        <p>Security skills are a trust. What you learn here is for protecting people.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">
+          <i data-lucide="users" style="width:20px;height:20px;"></i>
+        </div>
+        <h3>Community Over Competition</h3>
+        <p>Senior members teach. Beginners ask questions. Nobody gets looked down on for not knowing something.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">
+          <i data-lucide="heart-handshake" style="width:20px;height:20px;"></i>
+        </div>
+        <h3>Good Manners</h3>
+        <p>How we treat each other is not separate from the work. It is part of it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="events">
+    <div class="section-label">Events</div>
+    <h2>Events</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <strong>Hands-on labs</strong>
+        <p>Bring your laptop. We provide the infrastructure and the targets.</p>
+      </div>
+      <div class="feature-card">
+        <strong>Walkthroughs after every challenge</strong>
+        <p>Nobody leaves a CTF stuck.</p>
+      </div>
+      <div class="feature-card">
+        <strong>Talks from practitioners</strong>
+        <p>People currently building and breaking things share what they are seeing right now.</p>
+      </div>
+      <div class="feature-card">
+        <strong>Local meetups</strong>
+        <p>Regular gatherings in different cities so you do not have to travel far.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="programs">
+    <div class="section-label">Programs</div>
+    <h2>Programs</h2>
+    <div class="programs-list">
+      <div class="program-item">
+        <strong>Monthly CTFs and Workshops.</strong>
+        <p>Skill-tiered challenges in web exploitation, network defense, reverse engineering, and OSINT.</p>
+      </div>
+      <div class="program-item">
+        <strong>Mentorship Circles.</strong>
+        <p>People who build and secure systems paired with newcomers for ongoing guidance.</p>
+      </div>
+      <div class="program-item">
+        <strong>Certification Scholarship Fund.</strong>
+        <p>Subsidized or fully funded access to certifications like OSCP for members who could not otherwise afford them.</p>
+      </div>
+      <div class="program-item">
+        <strong>Bug bounty mentoring.</strong>
+        <p>Guidance on doing offensive security work ethically and legally.</p>
+      </div>
+      <div class="program-item">
+        <strong>Local chapters.</strong>
+        <p>Groups in various cities for regular meetups and workshops.</p>
+      </div>
+      <div class="program-item">
+        <strong>Multilingual resources.</strong>
+        <p>Materials and event support in Arabic, Urdu, and English.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="conduct">
+    <div class="section-label">Code of Conduct</div>
+    <h2>Code of Conduct</h2>
+    <p>ICSA is open to anyone, regardless of background, nationality, gender, or skill level.</p>
+    <ul class="conduct-list">
+      <li>
+        <i data-lucide="check" style="width:16px;height:16px;"></i>
+        No racism, misogyny, or harassment of any kind, online or in person.
+      </li>
+      <li>
+        <i data-lucide="check" style="width:16px;height:16px;"></i>
+        All security skills taught here are for defense, research, and authorized testing only.
+      </li>
+      <li>
+        <i data-lucide="check" style="width:16px;height:16px;"></i>
+        Disagreements are handled with good manners.
+      </li>
+      <li>
+        <i data-lucide="check" style="width:16px;height:16px;"></i>
+        What is shared in mentorship circles stays confidential.
+      </li>
+    </ul>
+  </section>
+
+  <section id="join">
+    <div class="section-label">Join Us</div>
+    <h2>Join Us</h2>
+    <p>Whether you are a student writing your first script, an engineer five years into your career, or just curious about what ethical hacking even is, there is a place for you here.</p>
+    <a class="cta" href="mailto:hello@icsalliance.org">
+      Get in Touch
+      <i data-lucide="arrow-right" style="width:15px;height:15px;"></i>
+    </a>
+  </section>
+
+</main>
+
+<footer>
+  <p>Islamic Cyber Security Alliance. Community, knowledge, and security, rooted in faith.</p>
+  <p><a href="mailto:hello@icsalliance.org">hello@icsalliance.org</a></p>
+</footer>
+
+<script>
+  lucide.createIcons();
+
+  var nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', function() {
+    nav.classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  var toggle = document.getElementById('mobileToggle');
+  var links = document.getElementById('navLinks');
+  toggle.addEventListener('click', function() {
+    links.classList.toggle('open');
+    var icon = toggle.querySelector('[data-lucide]');
+    icon.setAttribute('data-lucide', links.classList.contains('open') ? 'x' : 'menu');
+    lucide.createIcons();
+  });
+  links.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      links.classList.remove('open');
+      toggle.querySelector('[data-lucide]').setAttribute('data-lucide', 'menu');
+      lucide.createIcons();
+    });
+  });
+</script>
+</body>
+</html>
